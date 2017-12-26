@@ -254,6 +254,41 @@
 		pinctrl-0 = <&sdhc1_pin_a>;
 	};
 
+	usb@f9a55000 {
+		status = "ok";
+
+		phys = <&usb_hs1_phy>;
+		phy-select = <&tcsr 0xb000 0>;
+		extcon = <&smbb>, <&usb_id>;
+		vbus-supply = <&chg_otg>;
+
+		hnp-disable;
+		srp-disable;
+		adp-disable;
+
+		ulpi {
+			phy@a {
+				status = "ok";
+
+				v1p8-supply = <&pm8941_l6>;
+				v3p3-supply = <&pm8941_l24>;
+
+				extcon = <&smbb>;
+				qcom,init-seq = /bits/ 8 <0x1 0x64>;
+			};
+		};
+	};
+
+	i2c@f9967000 {
+		status = "ok";
+
+		led@38 {
+			compatible = "ti,lm3630a";
+			reg = <0x38>;
+			status = "ok";
+		};
+	};
+
 	gpio-keys {
 		compatible = "gpio-keys";
 		input-name = "gpio-keys";
@@ -273,6 +308,39 @@
 			gpios = <&pm8941_gpios 3 GPIO_ACTIVE_LOW>;
 			linux,input-type = <1>;
 			linux,code = <KEY_VOLUMEDOWN>;
+		};
+	};
+
+	mdss@fd900000 {
+		status = "ok";
+		dsi@fd922800 {
+			ports {
+				port@1 {
+					dsi0_out: endpoint {
+						remote-endpoint = <&panel_in>;
+						data-lanes = <0 1 2 3>;
+					};
+				};
+			};
+
+			panel@0 {
+				compatible = "jdi,1080p";
+
+				reg = <0>;
+				vddp-supply = <&pm8941_l22>;
+				iovcc-supply = <&pm8941_l12>;
+
+				enable-gpios = <&pm8941_gpios 58 GPIO_ACTIVE_LOW>;
+				reset-gpios = <&pm8941_gpios 19 GPIO_ACTIVE_LOW>;
+
+				//backlight = <&pm8941_wled>;
+
+				port {
+					panel_in: endpoint {
+						remote-endpoint = <&dsi0_out>;
+					};
+				};
+			};
 		};
 	};
 };

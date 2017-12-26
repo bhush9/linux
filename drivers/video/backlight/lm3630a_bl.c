@@ -327,6 +327,26 @@ static const struct backlight_ops lm3630a_bank_b_ops = {
 	.get_brightness = lm3630a_bank_b_get_brightness,
 };
 
+/*
+static struct lm3630a_platform_data *lm3630a_of_parse(struct device *dev,
+						int *id)
+{
+	struct lm3630a_platform_data *pdata;
+	struct device_node *node = dev->of_node;
+	int ret;
+	u32 reg;
+	u32 val;
+
+	pdata = devm_kzalloc(dev,
+			sizeof(struct lm3630a_platform_data),
+			GFP_KERNEL);
+	if (!pdata)
+		return NULL;
+
+	return pdata;
+}
+*/
+
 static int lm3630a_backlight_register(struct lm3630a_chip *pchip)
 {
 	struct backlight_properties props;
@@ -390,6 +410,9 @@ static int lm3630a_probe(struct i2c_client *client,
 	}
 
 	i2c_set_clientdata(client, pchip);
+	if (!pdata) {
+		printk(KERN_DEBUG "BSHAH: HELLO");
+	}
 	if (pdata == NULL) {
 		pdata = devm_kzalloc(pchip->dev,
 				     sizeof(struct lm3630a_platform_data),
@@ -472,9 +495,17 @@ static const struct i2c_device_id lm3630a_id[] = {
 
 MODULE_DEVICE_TABLE(i2c, lm3630a_id);
 
+static const struct of_device_id lm3630a_dt_ids[] = {
+	{ .compatible = "ti,lm3630a", },
+	{ }
+};
+
+MODULE_DEVICE_TABLE(of, lm3630a_dt_ids);
+
 static struct i2c_driver lm3630a_i2c_driver = {
 	.driver = {
 		   .name = LM3630A_NAME,
+		   .of_match_table = of_match_ptr(lm3630a_dt_ids),
 		   },
 	.probe = lm3630a_probe,
 	.remove = lm3630a_remove,
