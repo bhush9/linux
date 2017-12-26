@@ -356,7 +356,7 @@ static int jdi_panel_enable(struct drm_panel *panel)
 }
 
 static const struct drm_display_mode default_mode = {
-		.clock = 148876, //148875.6
+		.clock = 74438, //74437.8 1279 * 1940 * 30 / 100
 		.hdisplay = 1080,
 		.hsync_start = 1080 + 100,
 		.hsync_end = 1080 + 100 + 4,
@@ -426,6 +426,7 @@ static int jdi_panel_add(struct jdi_panel *jdi)
 		return ret;
 	}
 
+	/*
 	jdi->enable_gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_LOW);
 	if (IS_ERR(jdi->enable_gpio)) {
 		ret = PTR_ERR(jdi->enable_gpio);
@@ -445,7 +446,7 @@ static int jdi_panel_add(struct jdi_panel *jdi)
 		ret = PTR_ERR(jdi->dcdc_en_gpio);
 		dev_err(dev, "cannot get dcdc-en-gpio %d\n", ret);
 		return ret;
-	}
+	}*/
 
 	//TODO
 	/*
