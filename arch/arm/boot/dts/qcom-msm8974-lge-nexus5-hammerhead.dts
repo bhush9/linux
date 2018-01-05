@@ -187,6 +187,9 @@
 					l20 {
 						regulator-min-microvolt = <2950000>;
 						regulator-max-microvolt = <2950000>;
+						regulator-system-load = <200000>;
+
+						regulator-allow-set-load;
 
 						regulator-boot-on;
 					};
@@ -229,13 +232,13 @@
 		sdhc1_pin_a: sdhc1-pin-active {
 			clk {
 				pins = "sdc1_clk";
-				drive-strength = <16>;
+				drive-strength = <4>;
 				bias-disable;
 			};
 
 			cmd-data {
 				pins = "sdc1_cmd", "sdc1_data";
-				drive-strength = <10>;
+				drive-strength = <4>;
 				bias-pull-up;
 			};
 		};
