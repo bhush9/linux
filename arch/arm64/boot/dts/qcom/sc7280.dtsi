@@ -2846,7 +2846,7 @@
 			#power-domain-cells = <1>;
 			#reset-cells = <1>;
 
-			status = "reserved"; /* Owned by ADSP firmware */
+			//status = "reserved"; /* Owned by ADSP firmware */
 		};
 
 		lpass_va_macro: codec@3370000 {
