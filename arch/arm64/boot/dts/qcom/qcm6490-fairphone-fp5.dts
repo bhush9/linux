@@ -1341,8 +1341,7 @@
 };
 
 &sound {
-	compatible = "qcom,sm7325-sndcard",
-		     "qcom,sm8250-sndcard";
+	compatible = "fairphone,fp5-sndcard";
 
 	model = "Fairphone 5";
 
@@ -1725,7 +1724,6 @@
 	status = "okay";
 };
 
-// AUDIO - TEMP
 &lpass_rx_macro {
 	/delete-property/ power-domains;
 	/delete-property/ power-domain-names;
@@ -1737,12 +1735,6 @@
 	clock-names = "mclk", "npl", "macro", "dcodec", "fsgen";
 
 	clock-output-names = "mclk";
-};
-
-&lpass_tlmm {
-	clocks = <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
-		 <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
-	clock-names = "core", "audio";
 };
 
 &lpass_tx_macro {
@@ -1771,8 +1763,6 @@
 
 	clock-output-names = "fsgen";
 };
-
-// AUDIO TEMP 2
 
 &lpass_rx_macro {
 	status = "okay";
