@@ -689,7 +689,7 @@
 	cd-gpios = <&gpio2 10 GPIO_ACTIVE_LOW>;
 	
 	wifi_wake_host {
-		compatible = "nxp,wifi-wake-host";
+		compatible = "nxp,iw61x";
 		interrupt-parent = <&gpio3>;
 		interrupts = <6 IRQ_TYPE_LEVEL_HIGH>;
 		interrupt-names = "host-wake";
